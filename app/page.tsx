@@ -1,5 +1,5 @@
 "use client";
-import { ThemeToggle } from "../components/transversal/ThemeToggle";
+import { ThemeToggle } from "@components/transversal/buttons/ThemeToggle";
 
 export default function Home() {
   return (
