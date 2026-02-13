@@ -2,8 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { transversalService } from "@/lib/services/transversal";
-import { Option } from "@/interfaces/form";
-import { phoneCodesItems } from "@/lib/constants/phone_code";
+import { Option, SearchOption } from "@/interfaces/form";
+import { phoneCodesItems  } from "@/lib/constants/phone_code";
 
 
 interface ConfigDataContextType {
@@ -12,7 +12,6 @@ interface ConfigDataContextType {
   businessSeniority: Option[];
   cities: Option[];
   phoneCodes: Option[];
-  fetchCities: (countryId: number) => void;
   loading: boolean;
 }
 
@@ -20,7 +19,7 @@ const ConfigDataContext = createContext<ConfigDataContextType | undefined>(undef
 
 export function ConfigDataProvider({ children }: { children: React.ReactNode }) {
   const [documentTypes, setDocumentTypes] = useState<Option[]>([]);
-  const [businessTypes, setBusinessTypes] = useState<Option[]>([]);
+  const [businessTypes, setBusinessTypes] = useState<Option[] | SearchOption[]>([]);
   const [businessSeniority, setBusinessSeniority] = useState<Option[]>([]);
   const [cities, setCities] = useState<Option[]>([]);
   const [phoneCodes, setPhoneCodes] = useState(phoneCodesItems);
@@ -31,13 +30,14 @@ export function ConfigDataProvider({ children }: { children: React.ReactNode }) 
       try {
         // Cargamos los datos estáticos del servicio
         const docs = transversalService.getAllDocumentTypes();
-        const busTypes = transversalService.getAllBusinessTypes();
         const busSeniority = transversalService.getAllBusinessSeniority();
-       
-
+        const cities = transversalService.getAllCities(1);
+        const ciiu = transversalService.getAllCiiuCodes();
+        setCities(cities);
         setDocumentTypes(docs);
-        setBusinessTypes(busTypes);
+        setBusinessTypes(ciiu);
         setBusinessSeniority(busSeniority);
+       
       } catch (error) {
         console.error("Failed to load configuration data", error);
       } finally {
@@ -48,10 +48,7 @@ export function ConfigDataProvider({ children }: { children: React.ReactNode }) 
     loadData();
   }, []);
 
-  const fetchCities = (countryId: number) => {
-    const result = transversalService.getAllCities(1);
-    setCities(result);
-  };
+ 
 
  
 
@@ -61,7 +58,6 @@ export function ConfigDataProvider({ children }: { children: React.ReactNode }) 
     businessSeniority,
     cities,
     phoneCodes,
-    fetchCities,
     loading,
   };
 

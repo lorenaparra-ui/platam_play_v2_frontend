@@ -28,6 +28,8 @@ export const Select = <T extends FieldValues>({
   className,
   options,
   variant,
+  // @ts-ignore
+  optionsName,
   ...props
 }: SelectProps<T>) => {
   return (

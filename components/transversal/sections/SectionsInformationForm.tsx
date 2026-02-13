@@ -36,9 +36,14 @@ const renderField = <T extends FieldValues>(
     case FieldType.Date:
       return <DatePicker {...commonProps} />;
     case FieldType.SearchSelect:
-      return field.options ? <SearchSelect {...(commonProps as any)} options={field.options} /> : null;
+      return field.options ? <SearchSelect {...(commonProps as any)} items={field.options} /> : null;
     case FieldType.InputWithSelect:
-      return field.options ? <InputWithSelect type={type} {...(commonProps as any)} options={field.options} /> : null;
+      return field.options ? <InputWithSelect 
+        type={type} 
+        {...(commonProps as any)} 
+        options={field.options} 
+        defaultSelectValue={field.defaultSelectValue}
+      /> : null;
     default:
       return <Input {...commonProps} placeholder={field.placeholder} type={type} />;
   }

@@ -115,7 +115,6 @@ export const naturalPersonFormFields: FormStep[] = [
                         }
                     },
                     {
-
                         name: "phone_code",
                         label: "País / Número de celular",
                         type: "number",
@@ -124,9 +123,9 @@ export const naturalPersonFormFields: FormStep[] = [
                         labelKey: "label",
                         valueKey: "value",
                         imageKey: "flag",
+                        defaultSelectValue: "57",
                         rules: { required: "Código de país requerido" }
-                    },
-                    
+                    }, 
                 ]
             },
         ]
@@ -177,7 +176,7 @@ export const naturalPersonFormFields: FormStep[] = [
                     {
                         name: "business_type",
                         label: "Tipo de negocio",
-                        typefield: FieldType.Select,
+                        typefield: FieldType.SearchSelect,
                         optionsName: "businessTypes",
                         placeholder: "Buscar",
                         rules: { required: "Tipo de negocio requerido" }

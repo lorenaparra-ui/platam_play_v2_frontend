@@ -1,19 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useWordFilter } from '@/lib/hooks/useWordFilter';
+import { SearchOption, FormField } from '@/interfaces/form';
 
-export interface SearchOption {
-    id: string | number;
-    label: string;
-    value: any;
-}
-
-interface SearchSelectProps {
+interface SearchSelectProps extends Omit<FormField<any>, 'onSelect'> {
     items: SearchOption[];
     onSelect: (item: SearchOption) => void;
     placeholder?: string;
-    label?: string;
     className?: string;
     initialValue?: string;
+    
 }
 
 export const SearchSelect: React.FC<SearchSelectProps> = ({ 
@@ -22,7 +17,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
     placeholder = "Buscar...", 
     label,
     className = "",
-    initialValue = ""
+    initialValue = "", 
 }) => {
     const [searchTerm, setSearchTerm] = useState(initialValue);
     const [isOpen, setIsOpen] = useState(false);
@@ -78,9 +73,9 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 
             {isOpen && (
                 <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                    {filteredItems.length > 0 ? (
+                    {filteredItems?.length > 0 ? (
                         <ul className="py-1">
-                            {filteredItems.map((item) => (
+                            {filteredItems?.map((item) => (
                                 <li
                                     key={item.id}
                                     className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-700 dark:text-gray-200 transition-colors"

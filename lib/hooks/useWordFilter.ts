@@ -14,7 +14,7 @@ export function useWordFilter<T>(items: T[], searchTerm: string, key: keyof T): 
 
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
 
-        return items.filter((item) => {
+        return items?.filter((item) => {
             const value = item[key];
             
             // Verificación segura de nulos/indefinidos y conversión a string

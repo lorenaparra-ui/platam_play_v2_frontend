@@ -26,6 +26,13 @@ export const transversalService = {
         label: `${item.codigo} - ${item.descripcion}`
       }));
   },
+  getAllCiiuCodes: () => {
+    return flattenedCiiuCodes.map(item => ({
+      id: item.codigo,
+      label: `${item.codigo} - ${item.descripcion}`,
+      value: item.codigo
+    }));
+  },
   getAllCities: (CountryId: number) => [{ value: "BOGOTA", label: "BOGOTA" },
   { value: "MEDELLIN", label: "MEDELLIN" },
   { value: "CALI", label: "CALI" },
