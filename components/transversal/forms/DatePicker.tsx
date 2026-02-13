@@ -1,8 +1,15 @@
-import * as React from "react"
 import { cn } from "@/lib/utils/cn"
 import { inputVariants } from "./Input"
 import { Calendar } from "lucide-react"
 import { Control, Controller, FieldValues, Path, RegisterOptions } from "react-hook-form"
+
+// Helper para formatear fecha a YYYY-MM-DD local
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, "0")
+  const day = String(date.getDate()).padStart(2, "0")
+  return `${year}-${month}-${day}`
+}
 
 export interface DatePickerProps<T extends FieldValues>
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "name" | "defaultValue"> {
@@ -10,6 +17,8 @@ export interface DatePickerProps<T extends FieldValues>
   control: Control<T>
   label: string
   rules?: RegisterOptions<T>
+  minDate?: Date | string
+  maxDate?: Date | string
 }
 
 export const DatePicker = <T extends FieldValues>({
@@ -18,8 +27,13 @@ export const DatePicker = <T extends FieldValues>({
   label,
   rules,
   className,
+  minDate,
+  maxDate,
   ...props
 }: DatePickerProps<T>) => {
+  const min = minDate instanceof Date ? formatDate(minDate) : minDate
+  const max = maxDate instanceof Date ? formatDate(maxDate) : maxDate
+
   return (
     <div className="mb-4">
       <label
@@ -45,6 +59,8 @@ export const DatePicker = <T extends FieldValues>({
                   "pl-10 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer",
                   className
                 )}
+                min={min}
+                max={max}
                 {...field}
                 value={field.value ?? ""}
                 {...props}

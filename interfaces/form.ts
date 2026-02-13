@@ -10,19 +10,24 @@ export interface Option {
 };
 
 export interface FormField<T extends FieldValues>
-    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "name" | "defaultValue" | "size">,
-    VariantProps<typeof inputVariants> {
-    name: Path<T> 
-    control: Control<T>
-    label: string
-    rules?: RegisterOptions<T>
-    placeholder?: string;
-    type?: 'text' | 'number' | 'email' | 'password' ;
-    options?: Option[];
-    optionsName?: string,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "name" | "defaultValue" | "size">,
+  VariantProps<typeof inputVariants> {
+  name: Path<T>
+  control: Control<T>
+  label: string
+  rules?: RegisterOptions<T>
+  placeholder?: string;
+  type?: 'text' | 'number' | 'email' | 'password';
+  options?: Option[];
+  optionsName?: string,
+  minDate?: Date | string;
+  maxDate?: Date | string;
+  labelKey?: string;
+  valueKey?: string;
+  imageKey?: string;
 }
 
 export interface FormStep {
- step: number
- sections: SectionInformationField[] 
+  step: number
+  sections: SectionInformationField[]
 }

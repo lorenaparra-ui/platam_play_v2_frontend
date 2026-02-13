@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { transversalService } from "@/lib/services/transversal";
 import { Option } from "@/interfaces/form";
+import { phoneCodesItems } from "@/lib/constants/phone_code";
 
 
 interface ConfigDataContextType {
@@ -10,6 +11,7 @@ interface ConfigDataContextType {
   businessTypes: Option[];
   businessSeniority: Option[];
   cities: Option[];
+  phoneCodes: Option[];
   fetchCities: (countryId: number) => void;
   loading: boolean;
 }
@@ -21,6 +23,7 @@ export function ConfigDataProvider({ children }: { children: React.ReactNode }) 
   const [businessTypes, setBusinessTypes] = useState<Option[]>([]);
   const [businessSeniority, setBusinessSeniority] = useState<Option[]>([]);
   const [cities, setCities] = useState<Option[]>([]);
+  const [phoneCodes, setPhoneCodes] = useState(phoneCodesItems);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,15 +49,18 @@ export function ConfigDataProvider({ children }: { children: React.ReactNode }) 
   }, []);
 
   const fetchCities = (countryId: number) => {
-    const result = transversalService.getAllCities(countryId);
+    const result = transversalService.getAllCities(1);
     setCities(result);
   };
+
+ 
 
   const value = {
     documentTypes,
     businessTypes,
     businessSeniority,
     cities,
+    phoneCodes,
     fetchCities,
     loading,
   };

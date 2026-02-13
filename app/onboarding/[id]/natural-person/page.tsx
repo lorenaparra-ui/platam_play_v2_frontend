@@ -21,7 +21,7 @@ export default function NaturalPersonPage({ params }: { params: Promise<{ id: st
     const searchParams = useSearchParams();
     const salesRepresentative = searchParams.get("salesRepresentative");
 
-    const { documentTypes, businessTypes, businessSeniority, cities } = useConfigData();
+    const { documentTypes, businessTypes, businessSeniority, cities, phoneCodes } = useConfigData();
     const [salesRepresentatives, setSalesRepresentatives] = useState<any[]>([]);
 
     useEffect(() => {
@@ -37,6 +37,7 @@ export default function NaturalPersonPage({ params }: { params: Promise<{ id: st
         businessTypes,
         businessSeniority,
         cities,
+        phoneCodes,
     };
 
     const formFields = naturalPersonFormFields

@@ -1,9 +1,20 @@
 
 import { FormField } from "./form";
 
+export enum FieldType {
+    Input = 'input',
+    Search = 'search',
+    SearchSelect = 'search-select',
+    Select = 'select',
+    Textarea = 'textarea',
+    Checkbox = 'checkbox',
+    Date = 'date',
+    InputWithSelect = 'input-with-select',
+}
+
 
 export type FormFieldConfig = Omit<FormField<any>, "control"> & {
-  typefield: 'input' | 'select' | 'textarea' | 'checkbox' | 'date';
+  typefield:  FieldType;
 }
 
 
